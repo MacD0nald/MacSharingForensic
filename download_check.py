@@ -85,6 +85,6 @@ try:
     df = pd.DataFrame(Airdrop_info, columns=col)
     print(df)
     os.chdir(now)
-    df.to_csv("./CSV_Download.csv, sep=',')
+    df.to_csv("./CSV_Download.csv", sep=',')
 except FileNotFoundError:
     print("This is invalid account name. Try again.")
