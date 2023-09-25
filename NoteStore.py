@@ -5,11 +5,14 @@ import datetime
 import time
 import zlib
 
-def makecopy():
+def makecopy():    
     if os.path.isdir('./Copy_NoteStore')==False:
         os.mkdir('./Copy_NoteStore')
     now = os.getcwd()+'/Copy_NoteStore'
-    path = "/Library/Group Containers/group.com.apple.notes"
+    #'/Users/mansoo/Library/Group Containers/group.com.apple.notes/NoteStore.sqlite'
+    
+    username = input("Input the username: ")
+    path = "/Users/"+username+"/Library/Group Containers/group.com.apple.notes/"
     os.chdir(path)
     
     com = "cp NoteStore.sqlite "+now+"/"+"NoteStore.sqlite"
@@ -63,7 +66,7 @@ def sqlite_to_csv(database, file_name):
     conn = sqlite3.connect(database)
     cursor = conn.cursor()
 
-    cursor.execute(f"SELECT ZICCLOUDSYNCINGOBJECT.ZCREATIONDATE3, ZMODIFICATIONDATE1, ZSNIPPET, ZTITLE1, ZICNOTEDATA.ZDATA\nFROM ZICCLOUDSYNCINGOBJECT, ZICNOTEDATA\nWHERE ZICCLOUDSYNCINGOBJECT.Z_PK = ZICNOTEDATA.ZNOTE;")
+    cursor.execute("SELECT ZICCLOUDSYNCINGOBJECT.ZCREATIONDATE3, ZMODIFICATIONDATE1, ZSNIPPET, ZTITLE1, ZICNOTEDATA.ZDATA\nFROM ZICCLOUDSYNCINGOBJECT, ZICNOTEDATA\nWHERE ZICCLOUDSYNCINGOBJECT.Z_PK = ZICNOTEDATA.ZNOTE;")
     rows = cursor.fetchall()
 
     column_names = ['created_time', 'last_modified_time', 'snippet', 'title', 'note_data']
@@ -95,9 +98,10 @@ def sqlite_to_csv(database, file_name):
 
     conn.close()
 
+now = os.getcwd()
 
 makecopy()
 
-hex_data = now+"/"+"NoteStore.sqlite"
+hex_data = now+"/Copy_NoteStore/NoteStore.sqlite"
 file_name = now+"/"+"NoteStore.csv"
 sqlite_to_csv(hex_data, file_name)
