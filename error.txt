@@ -1,0 +1,2 @@
+dabin@Dabinui-MacBookAir-2 ~ % sudo python3 /Users/dabin/drive/DFC2023/MacOS_Forensics/tool_dev/call_history/callhistory.py
+cp: /Users/dabin/Library/Application Support/CallHistoryDB/CallHistory.storedata-wal: Operation not permitted
