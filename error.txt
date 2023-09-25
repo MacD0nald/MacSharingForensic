@@ -1,2 +1,6 @@
 dabin@Dabinui-MacBookAir-2 ~ % sudo python3 /Users/dabin/drive/DFC2023/MacOS_Forensics/tool_dev/call_history/callhistory.py
 cp: /Users/dabin/Library/Application Support/CallHistoryDB/CallHistory.storedata-wal: Operation not permitted
+
+파일 복사하지 않고 읽어들이는 코드도 시도해 봄
+permission error 발생
+오류 발생: [Errno 1] Operation not permitted: '/Users/dabin/Library/Application Support/CallHistoryDB/CallHistory.storedata-wal'
