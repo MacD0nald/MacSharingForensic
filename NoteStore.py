@@ -11,20 +11,17 @@ def makecopy():
     now = os.getcwd()+'/Copy_NoteStore'
     path = "/Library/Group Containers/group.com.apple.notes"
     os.chdir(path)
-    #print(now)
+    
     com = "cp NoteStore.sqlite "+now+"/"+"NoteStore.sqlite"
     os.popen(com)
     time.sleep(3)
     os.chdir(now)
 
 def convert_coretime_to_readable(timestamp):
-     # Mac Absolute Time (CoreServices Timestamp)는 2001년 1월 1일 기준
     base_date = datetime.datetime(2001, 1, 1)
 
-    # timedelta 객체를 사용해 초를 추가
     dt_object = base_date + datetime.timedelta(seconds=timestamp)
-
-    # 원하는 포맷으로 datetime 객체를 문자열로 변환
+    
     readable_time = dt_object.strftime('%Y-%m-%d %H:%M:%S') + " (UTC+0)"
 
     return readable_time
@@ -72,6 +69,7 @@ def sqlite_to_csv(database, file_name):
     column_names = ['created_time', 'last_modified_time', 'snippet', 'title', 'note_data']
 
     converted_rows = []
+
     for row in rows:
         if row[0] is None:
             converted_creation_date = "Empty"
@@ -96,6 +94,7 @@ def sqlite_to_csv(database, file_name):
         csv_writer.writerows(converted_rows)
 
     conn.close()
+
 
 makecopy()
 
