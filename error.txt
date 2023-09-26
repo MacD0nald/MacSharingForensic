@@ -1,6 +1,9 @@
-dabin@Dabinui-MacBookAir-2 ~ % sudo python3 /Users/dabin/drive/DFC2023/MacOS_Forensics/tool_dev/call_history/callhistory.py
-cp: /Users/dabin/Library/Application Support/CallHistoryDB/CallHistory.storedata-wal: Operation not permitted
+timestamp 관련 문제점 발생
 
-파일 복사하지 않고 읽어들이는 코드도 시도해 봄
-permission error 발생
-오류 발생: [Errno 1] Operation not permitted: '/Users/dabin/Library/Application Support/CallHistoryDB/CallHistory.storedata-wal'
+CallHistory.storedata 파일을 sqlite를 통해 열어본 결과 ZCALLRECORD 테이블의 ZDATE, ZUNIQUE_ID 열이 가장 시간 정보에 가까워보여 이를 디코딩하고자 함
+
+1. ZDATE: 맥은 유닉스 타임스탬프를 사용하므로 이를 통해 디코딩하고자 함
+  -> 디코딩 불가(2023년 시간정보가 나와야 하는데 1992년 시간정보가 출력됨)
+  -> 다른 타임스탬프 형식에 대해서는 시도해보지 못함
+
+2. ZUNIQUE_ID: 시간 기반 UUID가 아니므로 시간 정보를 찾을 수 없음
