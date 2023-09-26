@@ -3,6 +3,7 @@ import os
 import datetime
 import plistlib
 import pandas as pd
+import getpass
 
 def Check_Download(path, data):
     os.chdir(path)
@@ -75,9 +76,9 @@ def Check_Download(path, data):
                 data.append([dateAdded, "", fname, "", "", ""])
     return data
 
-username = input("Input the Username: ") # Username 입력
+current_user = getpass.getuser() # Username 입력
 now = os.getcwd()
-D_path = "/Users/"+username+"/Downloads"
+D_path = "/Users/"+current_user+"/Downloads"
 col = ["Created Timestamp", "Download Timestamp", "file_name", "Downlaod Agent","Download Source", "Quarantine_UUID"]
 Airdrop_info = []
 try:
