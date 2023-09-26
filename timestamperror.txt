@@ -1,8 +1,0 @@
-  sqlite를 통해 CallHistory.storedata를 열었을 때(기존에 사용하고자 했던 CallHistory.storedata-wal은 sqlite로 열람 불가) ZDATE, ZUNIQUE_ID 열이 시간을 알아낼 수 있는 가능성이 높아 보임
-
-  문제점 발생
-  ZDATE : UNIX 타임스탬프 형식으로 디코딩을 진행하였지만 맞는 시간이 나오지 않음
-    -> 2023년이 나와야 하는데 1992년 시간 출력
-    -> 다른 타임스탬프 형식은 아직 사용해보지 못함
-  ZUNIQUE_ID : 시간 기반 UUID가 아니므로 시간 정보를 저장하고 있지 않음
-  
