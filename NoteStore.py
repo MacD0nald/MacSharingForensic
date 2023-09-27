@@ -71,7 +71,7 @@ def sqlite_to_csv(database, file_name):
     cursor.execute("SELECT ZICCLOUDSYNCINGOBJECT.ZCREATIONDATE3, ZMODIFICATIONDATE1, ZSNIPPET, ZTITLE1, ZICNOTEDATA.ZDATA\nFROM ZICCLOUDSYNCINGOBJECT, ZICNOTEDATA\nWHERE ZICCLOUDSYNCINGOBJECT.Z_PK = ZICNOTEDATA.ZNOTE;")
     rows = cursor.fetchall()
 
-    column_names = ['created_time', 'last_modified_time', 'snippet', 'title', 'attached_file', 'note_data']
+    column_names = ['created_time', 'last_modified_time', 'snippet', 'title', 'note_data']
 
     converted_rows = []
 
