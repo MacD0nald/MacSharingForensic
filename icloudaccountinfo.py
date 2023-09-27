@@ -6,12 +6,14 @@ import sqlite3
 import csv
 import re
 import traceback
+import getpass
+
 def makecopy():
     if os.path.isdir('./copy_icloud')==False:
-        os.mkdir('./copy_icloud')
-    now = os.getcwd()+'/copy_icloud'
+        os.mkdir('./Copy_icloud')
+    now = os.getcwd()+'/Copy_icloud'
     
-    username=input("Enter the username: ")
+    username=getpass.getuser()
     path = "/Users/%s/Library/Preferences/"%username
     os.chdir(path)
     #print(now)
@@ -48,7 +50,7 @@ def TxttoCsv():
     valuableinfo=[]
     values=[]
 
-    csv_file = 'output_icloud.csv'
+    csv_file = 'CSV_icloud.csv'
 
     with open("accountinfo.txt",'r') as file:
         lines=file.readlines()
