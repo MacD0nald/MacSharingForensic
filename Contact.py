@@ -16,7 +16,7 @@ def directory():
     current_script_directory = os.path.dirname(__file__)
 
     # 대상 폴더 경로 (현재 스크립트 파일이 있는 폴더로 상대 경로 지정)
-    destination_folder = os.path.join(current_script_directory, "destination_folder")
+    destination_folder = os.path.join(current_script_directory, "Copy_Contact")
 
     # 대상 폴더가 없다면 생성
     if not os.path.exists(destination_folder):
@@ -104,5 +104,5 @@ if __name__ == "__main__":
 
     # 엑셀 파일 저장
     current_script_directory = os.path.dirname(__file__)
-    excel_file_path = os.path.join(current_script_directory, 'output.xlsx')
+    excel_file_path = os.path.join(current_script_directory, 'CSV_Contact.xlsx')
     workbook.save(excel_file_path)
