@@ -5,17 +5,19 @@ import os
 import pandas as pd
 import time
 
-def make_copy(now, D_path):
-    if not(os.path.isdir("Copy_Spotlight")):
-        os.mkdir("Copy_Spotlight")
+def make_copy(script_folder, D_path):
+    script_folder = os.path.dirname(os.path.abspath(__file__))
+    Copy_folder = os.path.join(script_folder, 'Copy_Spotlight')
+    if not(os.path.isdir(Copy_folder)):
+        os.mkdir(Copy_folder)
     os.chdir(D_path)
-    com = "cp com.apple.spotlight.Shortcuts.v3 "+now+"/Copy_Spotlight/com.apple.spotlight.Shortcuts.v3"
+    com = "cp com.apple.spotlight.Shortcuts.v3 "+os.path.join(Copy_folder, 'com.apple.spotlight.Shortcuts.v3')
     os.popen(com)
     time.sleep(1)
-    os.chdir(now)
+    os.chdir(script_folder)
 
-def Spotlighg_analyzer(Spotligjt_info):
-    tree = elemTree.parse('./Copy_Spotlight/com.apple.spotlight.Shortcuts.v3')
+def Spotlight_analyzer(Spotligjt_info):
+    tree = elemTree.parse(os.path.join(script_folder, 'Copy_Spotlight/com.apple.spotlight.Shortcuts.v3'))
 
     root = tree.find("dict")
     for i in range(0, len(root), 2): 
@@ -28,17 +30,21 @@ def Spotlighg_analyzer(Spotligjt_info):
     return Spotligjt_info
 
 
-current_user = getpass.getuser() # Username
-now = os.getcwd() #현재 실행 경로
-D_path = "/Users/"+current_user+"/Library/Application Support/com.apple.spotlight/"
+D_path =os.path.expanduser(f"~/Library/Application Support/com.apple.spotlight/")
 #/Users/woobeenpark/Library/Application Support/com.apple.spotlight/com.apple.spotlight.Shortcuts.v3
 col = ["Last Used", "Search Keyword", "Search Result", "Search Result Path"]
 Spotligjt_info = []
+
+# 현재 스크립트 파일이 있는 폴더 경로
+script_folder = os.path.dirname(os.path.abspath(__file__))
+
 try:
-    make_copy(now, D_path)
-    Spotligjt_info = Spotlighg_analyzer(Spotligjt_info)
-    df = pd.DataFrame(Spotligjt_info, columns=col)
-    os.chdir(now)
-    df.to_csv("./CSV_Spotlight.csv", sep=',')
+    make_copy(script_folder, D_path)
+    Spotlight_info = Spotlight_analyzer(Spotligjt_info)
+    df = pd.DataFrame(Spotlight_info, columns=col)
+    os.chdir(script_folder)
+    # CSV 파일로 저장
+    csv_file = os.path.join(script_folder, 'CSV_Spotlight.csv')  # CSV 파일 경로 설정
+    df.to_csv(csv_file, sep=',')
 except FileNotFoundError:
     print("This is invalid account name. Try again.")
