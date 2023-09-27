@@ -106,5 +106,3 @@ if __name__ == "__main__":
     current_script_directory = os.path.dirname(__file__)
     excel_file_path = os.path.join(current_script_directory, 'output.xlsx')
     workbook.save(excel_file_path)
-
-    print(f"엑셀 파일이 {excel_file_path} 경로에 생성되었습니다.")
