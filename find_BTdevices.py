@@ -8,9 +8,9 @@ import re
 
 
 def makecopy():
-    if os.path.isdir('./copy_BT')==False:
-        os.mkdir('./copy_BT')
-    now = os.getcwd()+'/copy_BT'
+    if os.path.isdir('./Copy_BT')==False:
+        os.mkdir('./Copy_BT')
+    now = os.getcwd()+'/Copy_BT'
     path = "/Library/Preferences/"
     os.chdir(path)
     #print(now)
@@ -58,7 +58,7 @@ def DbtoCsv():
     now=os.getcwd()
     database_file = now+"/"+"bluetooth_log.db"
     table_name = 'PairedDevices'
-    csv_file = 'output_BT.csv'
+    csv_file = 'CSV_BT.csv'
     conn = sqlite3.connect(database_file)
 
     # Create a cursor object
