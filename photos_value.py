@@ -3,57 +3,45 @@ from openpyxl import Workbook
 import getpass
 from datetime import datetime
 
-# 스크립트 파일이 있는 디렉토리를 기준으로 대상 폴더를 설정합니다.
-script_directory = os.path.dirname(__file__)
+import os
+import csv
+
+# 현재 스크립트 파일이 있는 디렉토리를 얻습니다.
+script_directory = os.path.dirname(os.path.abspath(__file__))
+
+# CSV 파일에 저장할 헤더를 정의합니다.
+csv_header = ['폴더명', '파일명', '파일 크기 (바이트)', '생성 시간', '최종 수정 시간']
 
 # 사용자 이름 가져오기
 current_user = getpass.getuser()
+target_folder_path = os.path.expanduser(f"~/Pictures/Photos Library.photoslibrary/originals")
 
-target_folder = os.path.expanduser(f"~/Pictures/Photos Library.photoslibrary/originals")
+# CSV 파일을 열고 헤더를 쓰기 모드로 씁니다.
+csv_file_path = os.path.join(script_directory, 'file_attributes.csv')
+with open(csv_file_path, mode='w', newline='') as csv_file:
+    writer = csv.writer(csv_file)
+    writer.writerow(csv_header)
 
-# 엑셀 워크북 생성
-workbook = Workbook()
-sheet = workbook.active
-sheet.title = 'photos_info'
+    # 0부터 F까지의 폴더를 순회합니다.
+    for folder_name in range(16):
+        folder_name = format(folder_name, 'X')  # 16진수로 변환 (0-F)
+        folder_path = os.path.join(target_folder_path, folder_name)  # 실제 폴더 경로로 변경해야 합니다.
 
-# 대상 폴더 내의 폴더들을 반복
-for root, dirs, files in os.walk(target_folder):
-    for file_name in files:
-        file_path = os.path.join(root, file_name)
-        file_stat = os.stat(file_path)
-        
-        # 폴더 경로를 엑셀에 추가
-        folder_name = os.path.basename(root)
-        
-        # 파일 속성 정보를 엑셀에 추가
-        sheet.append([folder_name, file_name, file_stat.st_size, file_stat.st_ctime, file_stat.st_mtime, file_stat.st_atime])
+        # 폴더 내의 파일 리스트를 가져옵니다.
+        file_list = os.listdir(folder_path)
 
-# 새로운 엑셀 파일을 만들기 위한 빈 리스트 생성
-new_rows = []
+        # 파일 정보를 읽어서 CSV 파일에 씁니다.
+        for file_name in file_list:
+            file_path = os.path.join(folder_path, file_name)
+            file_size = os.path.getsize(file_path)
+            file_create_time = datetime.fromtimestamp(os.path.getctime(file_path)).strftime('%Y-%m-%d %H:%M:%S')
+            file_modify_time = datetime.fromtimestamp(os.path.getmtime(file_path)).strftime('%Y-%m-%d %H:%M:%S')
 
-# 시간 열의 유닉스 타임스탬프 값을 '0000년 00월 00일 00시 00분 00초' 형식으로 변경
-for row in sheet.iter_rows(min_row=2, values_only=True):
-    new_row = list(row)  # 튜플을 리스트로 변환하여 수정 가능한 리스트 생성
-    for col_idx in range(4, 7):  # 4번째, 5번째, 6번째 열을 수정
-        unix_timestamp = new_row[col_idx - 1]  # 열의 위치에 따라 인덱스 조정
-        formatted_time = datetime.utcfromtimestamp(unix_timestamp).strftime('%Y년 %m월 %d일 %H시 %M분 %S초')
-        new_row[col_idx - 1] = formatted_time  # 열의 위치에 따라 인덱스 조정
-    new_rows.append(new_row)
+            # CSV 파일에 데이터를 씁니다.
+            writer.writerow([folder_name, file_name, file_size, file_create_time, file_modify_time])
 
-# 새로운 엑셀 시트를 만들어 데이터 쓰기
-new_sheet = workbook.create_sheet(title='새로운_시트_이름', index=0)  # 새로운 시트 생성
-new_sheet.title = 'photos_info'
-# 열 제목 추가
-new_sheet.append(['폴더명', '파일명', '파일 크기 (바이트)', '생성 시간', '최근 수정 시간', '최근 접근 시간'])
 
-for new_row in new_rows:
-    new_sheet.append(new_row)  # 데이터 추가
-    
-# 기존 시트 제거 (선택사항)
-workbook.remove(sheet)
+            # CSV 파일에 데이터를 씁니다.
+            writer.writerow([folder_name, file_name, file_size, file_create_time, file_modify_time])
 
-# 변경된 내용을 엑셀 파일에 저장
-excel_file_name = os.path.join(script_directory, 'photos_속성_정보.xlsx')
-workbook.save(excel_file_name)
-
-print('엑셀 파일이 저장되었습니다.')
+print(f'CSV 파일이 {csv_file_path} 경로에 생성되었습니다.')
