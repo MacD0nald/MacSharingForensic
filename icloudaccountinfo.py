@@ -9,7 +9,7 @@ import traceback
 import getpass
 
 def makecopy():
-    if os.path.isdir('./copy_icloud')==False:
+    if os.path.isdir('./Copy_icloud')==False:
         os.mkdir('./Copy_icloud')
     now = os.getcwd()+'/Copy_icloud'
     
