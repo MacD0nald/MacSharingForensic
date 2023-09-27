@@ -1,4 +1,3 @@
-#findind bluetooth connecting devices
 import os
 import plistlib
 import time
@@ -6,12 +5,13 @@ import sqlite3
 import csv
 import re
 import traceback
+import getpass
 def makecopy():
-    if os.path.isdir('./copy_backup')==False:
-        os.mkdir('./copy_backup')
-    now = os.getcwd()+'/copy_backup'
+    if os.path.isdir('./Copy_backup')==False:
+        os.mkdir('./Copy_backup')
+    now = os.getcwd()+'/Copy_backup'
     
-    username=input("Enter the username: ")
+    username=getpass.getuser()
     path = "/Users/%s/Library/Application Support/MobileSync/"%username
     os.chdir(path)
     #print(now)
@@ -38,7 +38,7 @@ def CheckPlist():
                     #value_list = plist_data['\s']
                     os.chdir('..')
                     os.chdir('..')
-                with open("backupinfo.txt", "w") as f:
+                with open("TXT_backupinfo.txt", "w") as f:
                     #f.write("Mac address: ")
                     valuable_data=['GUID','IMEI','IMEI2','Last Backup Date','MEID','Product Name','Product Type','Product Version',
                                    'Serial Number','Target Identifier','Target Type','Unique Identifier']
@@ -50,7 +50,7 @@ def CheckPlist():
                             string = device_mac+" : "+str(device_info)
                             f.write(string+"\n")
                             f.write("\n")
-                print("Check The file, 'backupinfo.txt'")
+                print("Check The file, 'TXT_backupinfo.txt'")
             except:
                 print("There is no devices in Mac")
                 print(traceback.format_exc())
