@@ -4,6 +4,7 @@ import csv
 import datetime
 import time
 import zlib
+import getpass
 
 def makecopy():    
     if os.path.isdir('./Copy_NoteStore')==False:
@@ -11,7 +12,8 @@ def makecopy():
     now = os.getcwd()+'/Copy_NoteStore'
     #'/Users/mansoo/Library/Group Containers/group.com.apple.notes/NoteStore.sqlite'
     
-    username = input("Input the username: ")
+    username = getpass.getuser()
+    
     path = "/Users/"+username+"/Library/Group Containers/group.com.apple.notes/"
     os.chdir(path)
     
