@@ -3,13 +3,14 @@ import sqlite3
 import csv
 import datetime
 import time
+import getpass
 
 def makecopy():
     if os.path.isdir('./Copy_Calendar')==False:
         os.mkdir('./Copy_Calendar')
     now = os.getcwd()+'/Copy_Calendar'
 
-    username = input("Input the username: ")
+    username = getpass.getuser()
 
     path = "/Users/"+username+"/Library/Calendars"
     os.chdir(path)
