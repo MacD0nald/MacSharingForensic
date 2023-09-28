@@ -1,3 +1,4 @@
+#findind bluetooth connecting devices
 import os
 import plistlib
 import time
@@ -6,15 +7,18 @@ import csv
 import re
 import traceback
 import getpass
+
 def makecopy():
+    script_folder=os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_folder)
     if os.path.isdir('./Copy_backup')==False:
         os.mkdir('./Copy_backup')
-    now = os.getcwd()+'/Copy_backup'
+    now = script_folder+'/Copy_backup'
     
-    username=getpass.getuser()
-    path = "/Users/%s/Library/Application Support/MobileSync/"%username
+    #username=getpass.getuser()
+    path = os.path.expanduser(f"~/Library/Application Support/MobileSync/")
     os.chdir(path)
-    #print(now)
+
     com = "cp -r Backup/ "+now
     os.popen(com)
     time.sleep(3)
@@ -36,8 +40,11 @@ def CheckPlist():
                     plist_data = plistlib.load(f)
                     #print(plist_data)
                     #value_list = plist_data['\s']
-                    os.chdir('..')
-                    os.chdir('..')
+                    script_folder=os.path.dirname(os.path.abspath(__file__))
+    
+                    now2 = script_folder
+                    os.chdir(script_folder)
+                    
                 with open("TXT_backupinfo.txt", "w") as f:
                     #f.write("Mac address: ")
                     valuable_data=['GUID','IMEI','IMEI2','Last Backup Date','MEID','Product Name','Product Type','Product Version',
