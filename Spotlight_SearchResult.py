@@ -1,6 +1,5 @@
 # spotlight
 import xml.etree.ElementTree as elemTree
-import getpass
 import os
 import pandas as pd
 import time
@@ -16,22 +15,26 @@ def make_copy(script_folder, D_path):
     time.sleep(1)
     os.chdir(script_folder)
 
-def Spotlight_analyzer(Spotligjt_info):
+def Spotlight_analyzer(Spotlight_info):
     tree = elemTree.parse(os.path.join(script_folder, 'Copy_Spotlight/com.apple.spotlight.Shortcuts.v3'))
 
     root = tree.find("dict")
     for i in range(0, len(root), 2): 
-        """print("사용자 검색 단어: ", root[i].text) #사용자 검색 단어
-        print(root[i+1][0].text, ":",  root[i+1][1].text) #사용자 선택 프로그램
-        print(root[i+1][2].text, ":",  root[i+1][3].text) # 사용자 마지막 사용 시간
-        print("Path", ":",  root[i+1][5].text) #해당 어플리케이션 및 파일 경로
-        print("---")"""
-        Spotligjt_info.append([root[i+1][3].text, root[i].text, root[i+1][1].text,  root[i+1][5].text])
-    return Spotligjt_info
+        app_name = ''
+        last_used = ''
+        path = ''
+        for j in range(0, len(root[i+1])):
+            if root[i+1][j].text == "DISPLAY_NAME":
+                app_name = root[i+1][j+1].text
+            elif root[i+1][j].text == "LAST_USED":
+                last_used = root[i+1][j+1].text
+            elif root[i+1][j].text == "URL":
+                path = root[i+1][j+1].text
+        Spotlight_info.append([last_used, root[i].text, app_name,  path])
+    return Spotlight_info
 
 
 D_path =os.path.expanduser(f"~/Library/Application Support/com.apple.spotlight/")
-#/Users/woobeenpark/Library/Application Support/com.apple.spotlight/com.apple.spotlight.Shortcuts.v3
 col = ["Last Used", "Search Keyword", "Search Result", "Search Result Path"]
 Spotligjt_info = []
 
