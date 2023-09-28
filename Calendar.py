@@ -8,11 +8,13 @@ import getpass
 def makecopy():
     if os.path.isdir('./Copy_Calendar')==False:
         os.mkdir('./Copy_Calendar')
+
     now = os.getcwd()+'/Copy_Calendar'
 
-    username = getpass.getuser()
+    home_dir = os.path.expanduser("~")
 
-    path = "/Users/"+username+"/Library/Calendars"
+    path = os.path.join(home_dir, "Library/Calendars/")
+
     os.chdir(path)
     #print(now)
     com = "cp Calendar.sqlitedb "+ now +"/"+"Calendar.sqlitedb"

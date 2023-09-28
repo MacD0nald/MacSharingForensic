@@ -11,9 +11,11 @@ def makecopy():
         os.mkdir('./Copy_NoteStore')
     now = os.getcwd()+'/Copy_NoteStore'
     
-    username = getpass.getuser()
     
-    path = "/Users/"+username+"/Library/Group Containers/group.com.apple.notes/"
+    home_dir = os.path.expanduser("~")
+    
+    path = os.path.join(home_dir, "Library/Group Containers/group.com.apple.notes/")
+    
     os.chdir(path)
     
     com = "cp NoteStore.sqlite "+now+"/"+"NoteStore.sqlite"
@@ -67,10 +69,10 @@ def sqlite_to_csv(database, file_name):
     conn = sqlite3.connect(database)
     cursor = conn.cursor()
 
-    cursor.execute("SELECT ZICCLOUDSYNCINGOBJECT.ZCREATIONDATE3, ZMODIFICATIONDATE1, ZSNIPPET, ZTITLE1, ZFILENAME, ZICNOTEDATA.ZDATA\nFROM ZICCLOUDSYNCINGOBJECT, ZICNOTEDATA\nWHERE ZICCLOUDSYNCINGOBJECT.Z_PK = ZICNOTEDATA.ZNOTE;")
+    cursor.execute("SELECT ZICCLOUDSYNCINGOBJECT.ZCREATIONDATE3, ZMODIFICATIONDATE1, ZSNIPPET, ZTITLE1, ZICNOTEDATA.ZDATA\nFROM ZICCLOUDSYNCINGOBJECT, ZICNOTEDATA\nWHERE ZICCLOUDSYNCINGOBJECT.Z_PK = ZICNOTEDATA.ZNOTE;")
     rows = cursor.fetchall()
 
-    column_names = ['created_time', 'last_modified_time', 'snippet', 'title', 'attached_file', 'note_data']
+    column_names = ['created_time', 'last_modified_time', 'snippet', 'title', 'note_data']
 
     converted_rows = []
 
@@ -85,11 +87,11 @@ def sqlite_to_csv(database, file_name):
         else:
           converted_modified_date = convert_coretime_to_readable(row[1])
         
-        if row[5] is None:
+        if row[4] is None:
             readable_hex_data = "Empty"
         else:
-            readable_hex_data = convert_hex_to_korean(row[5])
-        converted_row = (converted_creation_date, converted_modified_date, row[2], row[3], row[4], readable_hex_data)
+            readable_hex_data = convert_hex_to_korean(row[4])
+        converted_row = (converted_creation_date, converted_modified_date, row[2], row[3], readable_hex_data)
         converted_rows.append(converted_row)
 
     with open(file_name, 'w', newline='') as csv_file:
