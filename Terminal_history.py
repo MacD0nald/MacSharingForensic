@@ -13,10 +13,10 @@ def make_copy(now, D_path):
         os.mkdir(os.path.join(script_folder, 'Copy_Terminal'))
     os.chdir(D_path)
     if os.path.exists(".bash_history"):
-        com = "cp .bash_history "+os.path.join(Copy_folder, '.bash_history')
+        com = "cp .bash_history "+os.path.join(Copy_folder, 'bash_history')
         os.popen(com)
     if os.path.exists(".zsh_history"):
-        com = "cp .zsh_history "+os.path.join(Copy_folder, '.zsh_history')
+        com = "cp .zsh_history "+os.path.join(Copy_folder, 'zsh_history')
         os.popen(com)
     time.sleep(1)
     os.chdir(script_folder)
