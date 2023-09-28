@@ -28,7 +28,8 @@ def CheckPlist():
             plist_data = plistlib.load(f)
             #print(plist_data)
             value_list = plist_data["PersistentPorts"]
-        with open(script_folder+"/bluetooth_log.txt", "w") as f:
+            os.chdir(script_folder)
+        with open("bluetooth_log.txt", "w") as f:
             #f.write("Mac address: ")
             for device_mac in value_list.keys(): 
                 f.write(device_mac+"\n") #mac 주소
