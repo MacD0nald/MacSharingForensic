@@ -7,14 +7,15 @@ import csv
 import re
 import traceback
 import getpass
-
 def makecopy():
+    script_folder=os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_folder)
     if os.path.isdir('./Copy_icloud')==False:
         os.mkdir('./Copy_icloud')
-    now = os.getcwd()+'/Copy_icloud'
+    now = script_folder+'/Copy_icloud'
     
-    username=getpass.getuser()
-    path = "/Users/%s/Library/Preferences/"%username
+    #username=getpass.getuser()
+    path = os.path.expanduser(f"~/Library/Preferences/")
     os.chdir(path)
     #print(now)
     com = "cp MobileMeAccounts.plist "+now+"/"+"accountinfo.plist"
@@ -66,7 +67,11 @@ def TxttoCsv():
             header.append(valuableinfo[i].split(":")[0])
             values.append(valuableinfo[i].split(":")[1].replace(':',''))
     os.chdir('..')
-    now2=os.getcwd()
+    script_folder=os.path.dirname(os.path.abspath(__file__))
+    
+    now2 = script_folder
+    #now2=os.getcwd()
+
     # Write the data to a CSV file
     with open(now2+'/'+csv_file, 'w', newline='') as csvfile:
         csv_writer = csv.writer(csvfile)
