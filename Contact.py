@@ -7,9 +7,6 @@ import getpass  # getpass 모듈 추가
 
 def directory():
 
-    # 사용자 이름 가져오기
-    current_user = getpass.getuser()
-
     # 경로에 사용자 이름 추가
     source_folder = os.path.expanduser(f"~/Library/Application Support/AddressBook/Sources")
 
@@ -33,9 +30,7 @@ def directory():
 
         # 파일을 순회하면서 복사 및 이름 변경
         for i, filename in enumerate(files):
-            print(filename)
             if filename.endswith('.abcdp'):
-                print(filename)
                 source_file_path = os.path.join(source_folder2, filename)
                 # 복사한 파일을 대상 폴더에 저장
                 new_filename = f'{i+1}.abcdp'
