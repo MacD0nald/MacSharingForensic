@@ -39,13 +39,13 @@ def recursive_extract(data, parent_key='', results=None):
 
 def plist_to_txt (input_data, file_name):
   with open(input_data, 'rb') as f:
-    plist_data = input_data.load(f)
+     plist_data = plistlib.load(f)
   
   extracted_data = recursive_extract(plist_data)
 
   with open (file_name, 'w')as f:
     for line in extracted_data:
-      f.write(line + 'Wn')
+      f.write(line + '\n')
 
 now = os.getcwd()
 
