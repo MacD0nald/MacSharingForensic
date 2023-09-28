@@ -36,7 +36,6 @@ def Command_history():
 
 current_user = getpass.getuser() # Username
 D_path = os.path.expanduser(f"~/")
-#/Users/woobeenpark/Library/Application Support/com.apple.spotlight/com.apple.spotlight.Shortcuts.v3
 col = ["Command", "Shell"]
 terminal_history = []
 
