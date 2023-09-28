@@ -2,8 +2,7 @@ import os
 import plistlib
 from datetime import datetime
 import shutil
-import openpyxl
-import getpass  # getpass 모듈 추가
+import csv
 
 def directory():
 
@@ -68,7 +67,6 @@ def sel_bplist(plist_data):
             filtered_dict[key] = formatted_creation
     return filtered_dict
 
-    
 
 if __name__ == "__main__":
     destination_folder = directory()
@@ -83,21 +81,17 @@ if __name__ == "__main__":
             filtered_data = sel_bplist(plist_data)
             all_filtered_data.append(filtered_data)
 
-    # 엑셀 워크북 생성
-    workbook = openpyxl.Workbook()
-    sheet = workbook.active
-
-    # 열 제목 입력
-    columns = list(all_filtered_data[0].keys())
-    for col_num, column_title in enumerate(columns, 1):
-        sheet.cell(row=1, column=col_num, value=column_title)
-
-    # 데이터 입력
-    for row_num, data in enumerate(all_filtered_data, 2):
-        for col_num, cell_value in enumerate(data.values(), 1):
-            sheet.cell(row=row_num, column=col_num, value=cell_value)
-
-    # 엑셀 파일 저장
+    # Specify the CSV file path
     current_script_directory = os.path.dirname(__file__)
-    excel_file_path = os.path.join(current_script_directory, 'CSV_Contact.xlsx')
-    workbook.save(excel_file_path)
+    csv_file_path = os.path.join(current_script_directory, 'CSV_Contact.csv')  # Change the file extension to .csv
+
+    # Open the CSV file in write mode
+    with open(csv_file_path, 'w', newline='') as csv_file:
+        # Create a CSV writer
+        csv_writer = csv.DictWriter(csv_file, fieldnames=all_filtered_data[0].keys())
+
+        # Write the header row
+        csv_writer.writeheader()
+
+        # Write the data rows
+        csv_writer.writerows(all_filtered_data)
