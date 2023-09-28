@@ -5,12 +5,12 @@ import time
 import sqlite3
 import csv
 import re
-
-
 def makecopy():
+    script_folder=os.path.dirname(os.path.abspath(__file__))
+    os.chdir(script_folder)
     if os.path.isdir('./Copy_BT')==False:
         os.mkdir('./Copy_BT')
-    now = os.getcwd()+'/Copy_BT'
+    now = script_folder+'/Copy_BT'  
     path = "/Library/Preferences/"
     os.chdir(path)
     #print(now)
@@ -21,12 +21,14 @@ def makecopy():
 
 def CheckPlist():
     plist_name = "bluetooth_log.plist"
+    script_folder=os.path.dirname(os.path.abspath(__file__))
+
     try:
         with open(plist_name, 'rb') as f:
             plist_data = plistlib.load(f)
             #print(plist_data)
             value_list = plist_data["PersistentPorts"]
-        with open("bluetooth_log.txt", "w") as f:
+        with open(script_folder+"/bluetooth_log.txt", "w") as f:
             #f.write("Mac address: ")
             for device_mac in value_list.keys(): 
                 f.write(device_mac+"\n") #mac 주소
@@ -40,7 +42,9 @@ def CheckPlist():
         print("There is no devices in Mac")
 
 def CheckDatabase():
-    now = os.getcwd()
+    script_folder=os.path.dirname(os.path.abspath(__file__))
+
+    now = script_folder+'/Copy_BT'  
     path = "/Library/Bluetooth/"
     os.chdir(path)
     #print(now)
@@ -54,8 +58,10 @@ def CheckDatabase():
     os.chdir(now)
 
 def DbtoCsv():
-    os.chdir('..')
-    now=os.getcwd()
+    script_folder=os.path.dirname(os.path.abspath(__file__))
+
+    os.chdir(script_folder)
+    now = script_folder+'/Copy_BT'  
     database_file = now+"/"+"bluetooth_log.db"
     table_name = 'PairedDevices'
     csv_file = 'CSV_BT.csv'
@@ -77,7 +83,7 @@ def DbtoCsv():
     # Close the cursor and database connection
     cursor.close()
     conn.close()
-
+    os.chdir(script_folder)
     # Write the data to a CSV file
     with open(csv_file, 'w', newline='') as csvfile:
         csv_writer = csv.writer(csvfile)
@@ -121,7 +127,7 @@ def DbtoCsv():
                 name=devices[j][k]
             else: continue
         info=['',name,'',mac]
-        with open('output_BT.csv','a',newline='') as f:
+        with open(csv_file,'a',newline='') as f:
             csv_writer = csv.writer(f)
         
         # Write the column names as the header row
