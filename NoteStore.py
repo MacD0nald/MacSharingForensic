@@ -10,7 +10,6 @@ def makecopy():
     if os.path.isdir('./Copy_NoteStore')==False:
         os.mkdir('./Copy_NoteStore')
     now = os.getcwd()+'/Copy_NoteStore'
-    #'/Users/mansoo/Library/Group Containers/group.com.apple.notes/NoteStore.sqlite'
     
     username = getpass.getuser()
     
