@@ -6,8 +6,8 @@ import getpass
 
 def makecopy():
   if os.path.isdir('./Copy_LoginWindow')==False:
-    os.mkdir('./Copy_LoginWindow)')
-  now = os.getcwd()+'/Copy_LoginWindow)'
+    os.mkdir('./Copy_LoginWindow')
+  now = os.getcwd()+'/Copy_LoginWindow'
 
   path = "/Library/Preferences"
   os.chdir(path)
