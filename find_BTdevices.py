@@ -143,5 +143,5 @@ def find_BTdevices():
     CheckPlist()
     CheckDatabase()
     DbtoCsv()
-
-find_BTdevices()
+if __name__ == "__main__":
+    find_BTdevices()
