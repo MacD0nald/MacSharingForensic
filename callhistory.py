@@ -42,7 +42,7 @@ def convert_coretime_to_readable(timestamp):
     # 원하는 포맷으로 datetime 객체를 문자열로 변환
     readable_time = dt_object.strftime('%Y-%m-%d %H:%M:%S') + " (UTC+0)"
     return readable_time
-if __name__ == "__main__":
+def CallH():
     script_folder = os.path.dirname(os.path.abspath(__file__))
     directory()
     dbfile = os.path.join(script_folder, "CallHistory.storedata")
