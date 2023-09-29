@@ -5,7 +5,7 @@ from datetime import datetime
 
 import os
 import csv
-if __name__ == "__main__":
+def Photos():
     # 현재 스크립트 파일이 있는 디렉토리를 얻습니다.
     script_directory = os.path.dirname(os.path.abspath(__file__))
     
