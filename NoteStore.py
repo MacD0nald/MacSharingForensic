@@ -100,11 +100,11 @@ def sqlite_to_csv(database, file_name):
         csv_writer.writerows(converted_rows)
 
     conn.close()
+if __name__ == "__main__":
+    now = os.getcwd()
+    
+    makecopy()
 
-now = os.getcwd()
-
-makecopy()
-
-hex_data = now+"/Copy_NoteStore/NoteStore.sqlite"
-file_name = now+"/"+"NoteStore.csv"
-sqlite_to_csv(hex_data, file_name)
+    hex_data = now+"/Copy_NoteStore/NoteStore.sqlite"
+    file_name = now+"/"+"NoteStore.csv"
+    sqlite_to_csv(hex_data, file_name)
