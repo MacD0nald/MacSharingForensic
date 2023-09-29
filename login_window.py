@@ -46,7 +46,7 @@ def plist_to_txt (input_data, file_name):
   with open (file_name, 'w')as f:
     for line in extracted_data:
       f.write(line + '\n')
-if __name__ == "__main__":
+def login():
   now = os.getcwd()
   
   makecopy()
