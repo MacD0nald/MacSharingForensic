@@ -44,7 +44,7 @@ if you want to see the explanation of the parameters, you can use "-h".
 """
     print(help_e)
 
-value = sys.argv[0]
+value = sys.argv[1]
 try:
     if len(sys.argv) <=1:
         help()
