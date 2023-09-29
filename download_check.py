@@ -75,19 +75,18 @@ def Check_Download(path, data):
             else: 
                 data.append([dateAdded, "", fname, "", "", ""])
     return data
-
-current_user = getpass.getuser()
-
-now = os.getcwd()
-D_path = os.path.expanduser(f"~/Downloads")
-
-col = ["Created Timestamp", "Download Timestamp", "file_name", "Downlaod Agent","Download Source", "Quarantine_UUID"]
-Airdrop_info = []
-
-# 현재 스크립트 파일이 있는 폴더 경로
-script_folder = os.path.dirname(os.path.abspath(__file__))
-
-try:
+if __name__ == "__main__":
+    current_user = getpass.getuser()
+    
+    now = os.getcwd()
+    D_path = os.path.expanduser(f"~/Downloads")
+    
+    col = ["Created Timestamp", "Download Timestamp", "file_name", "Downlaod Agent","Download Source", "Quarantine_UUID"]
+    Airdrop_info = []
+    
+    # 현재 스크립트 파일이 있는 폴더 경로
+    script_folder = os.path.dirname(os.path.abspath(__file__))
+    
     Airdrop_info = Check_Download(D_path, Airdrop_info)
     df = pd.DataFrame(Airdrop_info, columns=col)
     #print(df)
@@ -95,5 +94,3 @@ try:
     # CSV 파일로 저장
     csv_file = os.path.join(script_folder, 'CSV_Download.csv')  # CSV 파일 경로 설정
     df.to_csv(csv_file, sep=',')
-except FileNotFoundError:
-    print("This is invalid account name. Try again.")
