@@ -1,5 +1,5 @@
 import sys
-from backup import find_idevicebackup
+import backup
 import Calendar
 import callhistory
 import Contact
@@ -50,37 +50,51 @@ try:
         help()
     if len(sys.argv) == 2:
         if value == '-bt':
-            find_BTdevices
+            find_BTdevices.find_BTdevices()
         elif value =='-id':
-            find_idevicebackup()
+            backup.find_idevicebackup()
         elif value == '-cale':
-            Calendar
+            Calendar.Calendar()
         elif value == '-call':
-            callhistory
+            callhistory.CallH()
         elif value == '-cont':
-            Contact
+            Contact.Contact()
         elif value =='-d':
-            download_check
+            download_check.Download_Check()
         elif value == '-ic':
-            icloudaccountinfo
+            icloudaccountinfo.find_icloudaccount()
         elif value == '-l':
-            login_window
+            login_window.login()
         elif value == '-n':
-            NoteStore
+            NoteStore.Note()
         elif value =="-p":
-            photos_value
+            photos_value.Photos()
         elif value == "-s":
-            Spotlight_SearchResult
+            Spotlight_SearchResult.Spotlight()
         elif value == "-t":
-            Terminal_history
-        elif value == "w":
-            webbrowser
+            Terminal_history.Terminal()
+        elif value == "-w":
+            webbrowser.webHistory()
+        elif value == "-all":
+            find_BTdevices.find_BTdevices()
+            backup.find_idevicebackup()
+            Calendar.Calendar()
+            callhistory.CallH()
+            Contact.Contact()
+            download_check.Download_Check()
+            icloudaccountinfo.find_icloudaccount()
+            login_window.login()
+            NoteStore.Note()
+            photos_value.Photos()
+            Spotlight_SearchResult.Spotlight()
+            Terminal_history.Terminal()
+            webbrowser.webHistory()
         else:
             help()
 except Exception as e:
     error = f"""
     Try again. If you need a help, you can use "-h"
-    {e}
+    error message : {e}
 
     """
     print(error)
