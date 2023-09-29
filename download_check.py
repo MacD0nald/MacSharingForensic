@@ -75,7 +75,7 @@ def Check_Download(path, data):
             else: 
                 data.append([dateAdded, "", fname, "", "", ""])
     return data
-if __name__ == "__main__":
+def Download_Check():
     current_user = getpass.getuser()
     
     now = os.getcwd()
