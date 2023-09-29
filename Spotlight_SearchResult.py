@@ -33,21 +33,21 @@ def Spotlight_analyzer(Spotlight_info):
         Spotlight_info.append([last_used, root[i].text, app_name,  path])
     return Spotlight_info
 
-
-D_path =os.path.expanduser(f"~/Library/Application Support/com.apple.spotlight/")
-col = ["Last Used", "Search Keyword", "Search Result", "Search Result Path"]
-Spotligjt_info = []
-
-# 현재 스크립트 파일이 있는 폴더 경로
-script_folder = os.path.dirname(os.path.abspath(__file__))
-
-try:
-    make_copy(script_folder, D_path)
-    Spotlight_info = Spotlight_analyzer(Spotligjt_info)
-    df = pd.DataFrame(Spotlight_info, columns=col)
-    os.chdir(script_folder)
-    # CSV 파일로 저장
-    csv_file = os.path.join(script_folder, 'CSV_Spotlight.csv')  # CSV 파일 경로 설정
-    df.to_csv(csv_file, sep=',')
-except FileNotFoundError:
-    print("This is invalid account name. Try again.")
+if __name__ == "__main__":
+    D_path =os.path.expanduser(f"~/Library/Application Support/com.apple.spotlight/")
+    col = ["Last Used", "Search Keyword", "Search Result", "Search Result Path"]
+    Spotligjt_info = []
+    
+    # 현재 스크립트 파일이 있는 폴더 경로
+    script_folder = os.path.dirname(os.path.abspath(__file__))
+    
+    try:
+        make_copy(script_folder, D_path)
+        Spotlight_info = Spotlight_analyzer(Spotligjt_info)
+        df = pd.DataFrame(Spotlight_info, columns=col)
+        os.chdir(script_folder)
+        # CSV 파일로 저장
+        csv_file = os.path.join(script_folder, 'CSV_Spotlight.csv')  # CSV 파일 경로 설정
+        df.to_csv(csv_file, sep=',')
+    except FileNotFoundError:
+        print("This is invalid account name. Try again.")
