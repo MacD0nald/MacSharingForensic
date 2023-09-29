@@ -32,14 +32,19 @@ It can collect some artifacts of Mac and show the result as CSV file.
 if you want to see the explanation of the parameters, you can use "-h".
 
 < Parameters >
+ -all : all artifacts
  -bt : Bluetooth connecting devices
  -cale: Calendar
  -call: Call history
  -cont : command history
  -d: downlaods source
  -h : help
+ -ic : icloud account
+ -id : idevice backup
  -l : login history
- -p : installed programs' name
+ -n : Note
+ -p : Photos
+ -s : Spotlight
  -w : web browser[Chrome, Safari]
 """
     print(help_e)
