@@ -76,7 +76,7 @@ def sqlite_to_csv(database, file_name):
         csv_writer.writerows(converted_rows)
 
     conn.close()
-if __name__ == "__main__":
+def Calendar():
     now = os.getcwd()
 
     makecopy()
