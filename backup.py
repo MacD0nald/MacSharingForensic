@@ -69,5 +69,5 @@ def CheckPlist():
 def find_idevicebackup():
     makecopy()
     CheckPlist()
-
-find_idevicebackup()
+if __name__ == "__main__":
+    find_idevicebackup()
