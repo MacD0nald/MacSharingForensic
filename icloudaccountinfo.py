@@ -94,5 +94,5 @@ def find_icloudaccount():
     makecopy()
     CheckPlist()
     TxttoCsv()
-
-find_icloudaccount()
+if __name__ == "__main__":
+    find_icloudaccount()
