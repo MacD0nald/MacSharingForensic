@@ -76,11 +76,11 @@ def sqlite_to_csv(database, file_name):
         csv_writer.writerows(converted_rows)
 
     conn.close()
+if __name__ == "__main__":
+    now = os.getcwd()
 
-now = os.getcwd()
-
-makecopy()
-
-input_data = now+"/Copy_Calendar/Calendar.sqlitedb"
-file_name = now+"/"+"Calendar.csv"
-sqlite_to_csv(input_data, file_name)
+    makecopy()
+    
+    input_data = now+"/Copy_Calendar/Calendar.sqlitedb"
+    file_name = now+"/"+"Calendar.csv"
+    sqlite_to_csv(input_data, file_name)
