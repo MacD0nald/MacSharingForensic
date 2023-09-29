@@ -30,7 +30,7 @@ def directory():
         except Exception as e:
             print(f'파일 복사 실패: {file}, 오류: {str(e)}')
 
-directory()
+
 
 def convert_coretime_to_readable(timestamp):
      # Mac Absolute Time (CoreServices Timestamp)는 2001년 1월 1일 기준
@@ -42,51 +42,52 @@ def convert_coretime_to_readable(timestamp):
     # 원하는 포맷으로 datetime 객체를 문자열로 변환
     readable_time = dt_object.strftime('%Y-%m-%d %H:%M:%S') + " (UTC+0)"
     return readable_time
-
-script_folder = os.path.dirname(os.path.abspath(__file__))
-dbfile = os.path.join(script_folder, "CallHistory.storedata")
-conn = sqlite3.connect(dbfile)
-cursor = conn.cursor()
-
-# CSV 파일 저장 경로
-csv_file = 'output.csv'
-
-# 특정 테이블 선택
-table_name = 'ZCALLRECORD'
-columns_to_read = ['ZADDRESS', 'ZISO_COUNTRY_CODE', 'ZDATE', 'ZDURATION']
-
-# SQL 쿼리 작성 (특정 테이블의 특정 열 읽기)
-query = f"SELECT {', '.join(columns_to_read)} FROM {table_name}"
-
-# 쿼리 실행
-cursor.execute(query)
-
-# 결과 가져오기
-rows = cursor.fetchall()
-
-# CSV 파일로 저장
-csv_file = os.path.join(script_folder, 'output.csv')  # CSV 파일 경로 설정
-
-with open(csv_file, 'w', newline='') as csv_output:
-    csv_writer = csv.writer(csv_output)
+if __name__ == "__main__":
+    script_folder = os.path.dirname(os.path.abspath(__file__))
+    directory()
+    dbfile = os.path.join(script_folder, "CallHistory.storedata")
+    conn = sqlite3.connect(dbfile)
+    cursor = conn.cursor()
     
-    # 열 이름을 CSV 파일의 첫 행으로 쓰기
-    csv_writer.writerow(['Phone number', 'ISO Country Code', 'Date', 'Duration(sec)'])
+    # CSV 파일 저장 경로
+    csv_file = 'output.csv'
     
-    for row in rows:
-        # 타임스탬프 열의 값을 보기 좋은 형식으로 변환
-        timestamp_index = columns_to_read.index('ZDATE')
-        timestamp = row[timestamp_index]
+    # 특정 테이블 선택
+    table_name = 'ZCALLRECORD'
+    columns_to_read = ['ZADDRESS', 'ZISO_COUNTRY_CODE', 'ZDATE', 'ZDURATION']
+    
+    # SQL 쿼리 작성 (특정 테이블의 특정 열 읽기)
+    query = f"SELECT {', '.join(columns_to_read)} FROM {table_name}"
+    
+    # 쿼리 실행
+    cursor.execute(query)
+    
+    # 결과 가져오기
+    rows = cursor.fetchall()
+    
+    # CSV 파일로 저장
+    csv_file = os.path.join(script_folder, 'output.csv')  # CSV 파일 경로 설정
+    
+    with open(csv_file, 'w', newline='') as csv_output:
+        csv_writer = csv.writer(csv_output)
         
-        # 타임스탬프 열의 값을 보기 좋은 형식으로 교체
-        row = list(row)
-        row[timestamp_index] = convert_coretime_to_readable(timestamp)
+        # 열 이름을 CSV 파일의 첫 행으로 쓰기
+        csv_writer.writerow(['Phone number', 'ISO Country Code', 'Date', 'Duration(sec)'])
         
-        # 결과 행을 CSV 파일에 쓰기
-        csv_writer.writerow(row)
-
-print(f"데이터를 {csv_file}로 저장했습니다.")
-
-
-# 연결 종료
-conn.close()
+        for row in rows:
+            # 타임스탬프 열의 값을 보기 좋은 형식으로 변환
+            timestamp_index = columns_to_read.index('ZDATE')
+            timestamp = row[timestamp_index]
+            
+            # 타임스탬프 열의 값을 보기 좋은 형식으로 교체
+            row = list(row)
+            row[timestamp_index] = convert_coretime_to_readable(timestamp)
+            
+            # 결과 행을 CSV 파일에 쓰기
+            csv_writer.writerow(row)
+    
+    print(f"데이터를 {csv_file}로 저장했습니다.")
+    
+    
+    # 연결 종료
+    conn.close()
