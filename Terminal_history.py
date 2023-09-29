@@ -33,22 +33,22 @@ def Command_history():
                 for j in f.readlines():
                     terminal_history.append([str(j), "bash_shell"])
     return terminal_history
-
-current_user = getpass.getuser() # Username
-D_path = os.path.expanduser(f"~/")
-col = ["Command", "Shell"]
-terminal_history = []
-
-# 현재 스크립트 파일이 있는 폴더 경로
-script_folder = os.path.dirname(os.path.abspath(__file__))
-
-try:
-    make_copy(script_folder, D_path)
-    terminal_history = Command_history()
-    df = pd.DataFrame(terminal_history, columns=col)
-    os.chdir(script_folder)
-    # CSV 파일로 저장
-    csv_file = os.path.join(script_folder, 'CSV_Terminal.csv')  # CSV 파일 경로 설정
-    df.to_csv(csv_file, sep=',')
-except FileNotFoundError:
-    print("This is invalid account name. Try again.")
+if __name__ == "__main__":
+    current_user = getpass.getuser() # Username
+    D_path = os.path.expanduser(f"~/")
+    col = ["Command", "Shell"]
+    terminal_history = []
+    
+    # 현재 스크립트 파일이 있는 폴더 경로
+    script_folder = os.path.dirname(os.path.abspath(__file__))
+    
+    try:
+        make_copy(script_folder, D_path)
+        terminal_history = Command_history()
+        df = pd.DataFrame(terminal_history, columns=col)
+        os.chdir(script_folder)
+        # CSV 파일로 저장
+        csv_file = os.path.join(script_folder, 'CSV_Terminal.csv')  # CSV 파일 경로 설정
+        df.to_csv(csv_file, sep=',')
+    except FileNotFoundError:
+        print("This is invalid account name. Try again.")
