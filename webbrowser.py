@@ -146,7 +146,7 @@ def checkWeb():
             checkUrl("Chrome")
 
 
-if __name__ == "__main__":
+def webHistory():
     lib_path =os.path.expanduser(f"~/Library/")
     # 현재 스크립트 파일이 있는 폴더 경로
     now_path = os.path.dirname(os.path.abspath(__file__))
