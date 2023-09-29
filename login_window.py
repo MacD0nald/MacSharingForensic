@@ -46,11 +46,11 @@ def plist_to_txt (input_data, file_name):
   with open (file_name, 'w')as f:
     for line in extracted_data:
       f.write(line + '\n')
-
-now = os.getcwd()
-
-makecopy()
-
-input_data = now+"/Copy_LoginWindow/com.apple.loginwindow.plist"
-file_name = now+"/"+"LoginWinow.txt"
-plist_to_txt(input_data, file_name)
+if __name__ == "__main__":
+  now = os.getcwd()
+  
+  makecopy()
+  
+  input_data = now+"/Copy_LoginWindow/com.apple.loginwindow.plist"
+  file_name = now+"/"+"LoginWinow.txt"
+  plist_to_txt(input_data, file_name)
