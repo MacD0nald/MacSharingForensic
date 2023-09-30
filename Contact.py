@@ -5,9 +5,12 @@ import shutil
 import csv
 
 def directory():
-
     # 경로에 사용자 이름 추가
     source_folder = os.path.expanduser(f"~/Library/Application Support/AddressBook/Sources")
+
+    if not os.path.exists(source_folder):
+        print("Sources 폴더가 존재하지 않습니다. 프로그램을 종료합니다.")
+        return None
 
     current_script_directory = os.path.dirname(__file__)
 
@@ -21,7 +24,7 @@ def directory():
     # 원본 폴더에서 폴더 목록 가져오기
     files = os.listdir(source_folder)
     files.remove('.DS_Store')
-    
+
     for i in files:
         source_folder2 = os.path.join(source_folder, i)
         source_folder2 = os.path.join(source_folder2, "Metadata")
@@ -68,7 +71,7 @@ def sel_bplist(plist_data):
     return filtered_dict
 
 
-def Contact():
+if __name__ == "__main__":
     destination_folder = directory()
     all_filtered_data = []
 
