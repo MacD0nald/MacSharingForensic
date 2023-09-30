@@ -125,9 +125,14 @@ def checkUrl(web):  #check the visited url
         df.to_csv(csv_file, sep=',')
 
 def checkWeb():
+    lib_path =os.path.expanduser(f"~/Library/")
+    # 현재 스크립트 파일이 있는 폴더 경로
+    now_path = os.path.dirname(os.path.abspath(__file__))
     os.chdir(lib_path)
     stream = os.popen("ls")
     folder_name = stream.readlines()
+    safari = False
+    google = False
 
     for i in folder_name: 
         if "Safari\n" in i:
@@ -137,17 +142,17 @@ def checkWeb():
             os.chdir(now_path)
             checkUrl("Safari")
             checkDownload("Safari")
-        if "Google" in i:
+            safari = True
+        elif "Google" in i:
             print("Google matched!")
             history_path = lib_path + "/Application Support/Google/Chrome/Default"
             makecopy(history_path, now_path, "Chrome")
             os.chdir(now_path)
             checkDownload("Chrome")
             checkUrl("Chrome")
-
+            google = True
+    if not(safari or google):
+        print("There is no Safari and Chrome")
 
 def webHistory():
-    lib_path =os.path.expanduser(f"~/Library/")
-    # 현재 스크립트 파일이 있는 폴더 경로
-    now_path = os.path.dirname(os.path.abspath(__file__))
     checkWeb()
