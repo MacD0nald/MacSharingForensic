@@ -36,7 +36,7 @@ if you want to see the explanation of the parameters, you can use "-h".
  -bt : Bluetooth connecting devices
  -cale: Calendar
  -call: Call history
- -cont : command history
+ -cont : Contact
  -d: downlaods source
  -h : help
  -ic : icloud account
