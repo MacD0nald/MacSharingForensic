@@ -26,7 +26,7 @@ def makecopy(history, now, web):
         time.sleep(1)
     
 
-def checkDownload(web): #Check the Safari Download history
+def checkDownload(web, now_path): #Check the Safari Download history
     Copy_folder = now_path+"/Copy_"+web+"history/"
     download = []
     if web == "Safari":
@@ -83,11 +83,11 @@ def checkDownload(web): #Check the Safari Download history
     df.to_csv(csv_file, sep=',')
 
 
-def checkUrl(web):  #check the visited url
+def checkUrl(web, now_path):  #check the visited url
     Copy_folder = now_path+"/Copy_"+web+"history/"
     if web == "Safari":
         db_name = os.path.join(Copy_folder, "Safari_history.db")
-        print(db_name)
+        #print(db_name)
         con = sqlite3.connect(db_name)
         cursor = con.cursor()
         cursor.execute("SELECT visit_time, title FROM history_visits")
@@ -136,20 +136,20 @@ def checkWeb():
 
     for i in folder_name: 
         if "Safari\n" in i:
-            print("Safari matched!") 
+            #print("Safari matched!") 
             history = lib_path+"/Safari"
             makecopy(history, now_path, "Safari")
             os.chdir(now_path)
-            checkUrl("Safari")
-            checkDownload("Safari")
+            checkUrl("Safari", now_path)
+            checkDownload("Safari", now_path)
             safari = True
         elif "Google" in i:
-            print("Google matched!")
+            #print("Google matched!")
             history_path = lib_path + "/Application Support/Google/Chrome/Default"
             makecopy(history_path, now_path, "Chrome")
             os.chdir(now_path)
-            checkDownload("Chrome")
-            checkUrl("Chrome")
+            checkDownload("Chrome", now_path)
+            checkUrl("Chrome", now_path)
             google = True
     if not(safari or google):
         print("There is no Safari and Chrome")
