@@ -67,4 +67,4 @@ python3 main.py [argv]
  -p : Photos
  -s : Spotlight
  -w : web browser[Chrome, Safari]
-```# MacSharingForensic
+```
