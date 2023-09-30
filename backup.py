@@ -62,9 +62,6 @@ def CheckPlist():
                 print("There is no devices in Mac")
                 print(traceback.format_exc())
 
-    
-
-
 
 def find_idevicebackup():
     makecopy()
