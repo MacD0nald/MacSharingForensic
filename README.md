@@ -53,13 +53,18 @@ python3 main.py [argv]
 ```
 
 ```bash
+ -all : all artifacts
  -bt : Bluetooth connecting devices
  -cale: Calendar
  -call: Call history
- -cont : command history
+ -cont : Contact
  -d: downlaods source
  -h : help
+ -ic : icloud account
+ -id : idevice backup
  -l : login history
- -p : installed programs' name
+ -n : Note
+ -p : Photos
+ -s : Spotlight
  -w : web browser[Chrome, Safari]
 ```# MacSharingForensic
