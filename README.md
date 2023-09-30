@@ -12,7 +12,7 @@ This tool was submitted to DFC Tech Contest.
 - MacOS Ventrura(13.4.*), for live collection
 
 ```bash
-python3 install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 ## Main Functions
