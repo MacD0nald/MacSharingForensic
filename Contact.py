@@ -9,7 +9,7 @@ def directory():
     source_folder = os.path.expanduser(f"~/Library/Application Support/AddressBook/Sources")
 
     if not os.path.exists(source_folder):
-        print("Sources 폴더가 존재하지 않습니다. 프로그램을 종료합니다.")
+        print("Sources folder is no longer exist")
         return None
 
     current_script_directory = os.path.dirname(__file__)
@@ -86,7 +86,7 @@ def Contact():
 
     # Specify the CSV file path
     current_script_directory = os.path.dirname(__file__)
-    csv_file_path = os.path.join(current_script_directory, 'CSV_Contact.csv')  # Change the file extension to .csv
+    csv_file_path = os.path.join(current_script_directory, 'CSV_Contact.csv')
 
     # Open the CSV file in write mode
     with open(csv_file_path, 'w', newline='') as csv_file:
