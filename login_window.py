@@ -56,10 +56,11 @@ def plist_to_csv(plist_path):
         writer = csv.writer(f)
         writer.writerow(["Level 1", "Level 2", "Level 3"])
         writer.writerows(rows)
-# 사용
-now = os.getcwd()
 
-makecopy()
+def login_window()
+    now = os.getcwd()
 
-input_data = now+"/Copy_LoginWindow/com.apple.loginwindow.plist"
-plist_to_csv(input_data)
+    makecopy()
+
+    input_data = now+"/Copy_LoginWindow/com.apple.loginwindow.plist"
+    plist_to_csv(input_data)
