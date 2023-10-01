@@ -31,7 +31,7 @@ This tool is a Mac operating system forensics tool specific to Ventura(13.4.*)
 It can collect some artifacts of Mac and show the result as CSV file.
 if you want to see the explanation of the parameters, you can use "-h".
 
-< Parameters >
+< Arguments >
  -all : all artifacts
  -bt : Bluetooth connecting devices
  -cale: Calendar
@@ -48,58 +48,61 @@ if you want to see the explanation of the parameters, you can use "-h".
  -w : web browser[Chrome, Safari]
 """
     print(help_e)
-
-value = sys.argv[1]
-try:
-    if len(sys.argv) <=1:
-        help()
-    if len(sys.argv) == 2:
-        if value == '-bt':
-            find_BTdevices.find_BTdevices()
-        elif value =='-id':
-            backup.find_idevicebackup()
-        elif value == '-cale':
-            Calendar.Calendar()
-        elif value == '-call':
-            callhistory.CallH()
-        elif value == '-cont':
-            Contact.Contact()
-        elif value =='-d':
-            download_check.Download_Check()
-        elif value == '-ic':
-            icloudaccountinfo.find_icloudaccount()
-        elif value == '-l':
-            login_window.login()
-        elif value == '-n':
-            NoteStore.Note()
-        elif value =="-p":
-            photos_value.Photos()
-        elif value == "-s":
-            Spotlight_SearchResult.Spotlight()
-        elif value == "-t":
-            Terminal_history.Terminal()
-        elif value == "-w":
-            webbrowser.webHistory()
-        elif value == "-all":
-            find_BTdevices.find_BTdevices()
-            backup.find_idevicebackup()
-            Calendar.Calendar()
-            callhistory.CallH()
-            Contact.Contact()
-            download_check.Download_Check()
-            icloudaccountinfo.find_icloudaccount()
-            login_window.login()
-            NoteStore.Note()
-            photos_value.Photos()
-            Spotlight_SearchResult.Spotlight()
-            Terminal_history.Terminal()
-            webbrowser.webHistory()
-        else:
+if len(sys.argv) < 2:
+    print("Enter the Arguement")
+    print("""If you need a help, you can use "-h""")
+else:
+    value = sys.argv[1]
+    try:
+        if len(sys.argv) <=1:
             help()
-except Exception as e:
-    error = f"""
-    Try again. If you need a help, you can use "-h"
-    error message : {e}
+        if len(sys.argv) == 2:
+            if value == '-bt':
+                find_BTdevices.find_BTdevices()
+            elif value =='-id':
+                backup.find_idevicebackup()
+            elif value == '-cale':
+                Calendar.Calendar()
+            elif value == '-call':
+                callhistory.CallH()
+            elif value == '-cont':
+                Contact.Contact()
+            elif value =='-d':
+                download_check.Download_Check()
+            elif value == '-ic':
+                icloudaccountinfo.find_icloudaccount()
+            elif value == '-l':
+                login_window.login()
+            elif value == '-n':
+                NoteStore.Note()
+            elif value =="-p":
+                photos_value.Photos()
+            elif value == "-s":
+                Spotlight_SearchResult.Spotlight()
+            elif value == "-t":
+                Terminal_history.Terminal()
+            elif value == "-w":
+                webbrowser.webHistory()
+            elif value == "-all":
+                find_BTdevices.find_BTdevices()
+                backup.find_idevicebackup()
+                Calendar.Calendar()
+                callhistory.CallH()
+                Contact.Contact()
+                download_check.Download_Check()
+                icloudaccountinfo.find_icloudaccount()
+                login_window.login()
+                NoteStore.Note()
+                photos_value.Photos()
+                Spotlight_SearchResult.Spotlight()
+                Terminal_history.Terminal()
+                webbrowser.webHistory()
+            else:
+                help()
+    except Exception as e:
+        error = f"""
+        Try again. If you need a help, you can use "-h"
+        error message : {e}
 
-    """
-    print(error)
+        """
+        print(error)
