@@ -34,7 +34,7 @@ def traverse_dict(d, path=[]):
     return rows
 
 
-def plist_to_csv(plist_path):
+def plist_to_csv(plist_path, file_name):
     # plist 파일 읽기
     with open(plist_path, 'rb') as f:
         pl = plistlib.load(f)
@@ -52,7 +52,7 @@ def plist_to_csv(plist_path):
         prev_l1, prev_l2 = l1, l2
 
     # CSV 파일로 저장
-    with open(now+"/LoginWindow.csv", "w") as f:
+    with open(file_name, "w") as f:
         writer = csv.writer(f)
         writer.writerow(["Level 1", "Level 2", "Level 3"])
         writer.writerows(rows)
@@ -63,4 +63,5 @@ def login():
     makecopy()
 
     input_data = now+"/Copy_LoginWindow/com.apple.loginwindow.plist"
-    plist_to_csv(input_data)
+    file_name = now+"/LoginWindow.csv"
+    plist_to_csv(input_data, file_name)
