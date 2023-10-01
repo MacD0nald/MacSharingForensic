@@ -70,7 +70,6 @@ def sel_bplist(plist_data):
             filtered_dict[key] = formatted_creation
     return filtered_dict
 
-
 def Contact():
     destination_folder = directory()
     all_filtered_data = []
@@ -98,4 +97,5 @@ def Contact():
 
         # Write the data rows
         csv_writer.writerows(all_filtered_data)
-    print(f"Contact output: {csv_file}")
+        
+    print(f"Contact output: {csv_file_path}")
