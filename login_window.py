@@ -57,7 +57,7 @@ def plist_to_csv(plist_path):
         writer.writerow(["Level 1", "Level 2", "Level 3"])
         writer.writerows(rows)
 
-def login_window()
+def login()
     now = os.getcwd()
 
     makecopy()
