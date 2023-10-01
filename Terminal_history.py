@@ -49,4 +49,4 @@ def Terminal():
         # CSV 파일로 저장
         csv_file = os.path.join(script_folder, 'CSV_Terminal.csv')  # CSV 파일 경로 설정
         df.to_csv(csv_file, sep=',')
-        print("Terminal history output: ", csv_file)
+        print("Terminal history output :", csv_file)
