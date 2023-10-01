@@ -62,7 +62,7 @@ def checkDownload(web, now_path): #Check the Safari Download history
             # CSV 파일로 저장
             csv_file = os.path.join(now_path, 'CSV_SafariDownload.csv')  # CSV 파일 경로 설정
             df.to_csv(csv_file, sep=',')
-            print("Safari Download output : ", csv_file)
+            print("Safari Download output :", csv_file)
 
     if web == "Chrome":
         download = []
@@ -82,7 +82,7 @@ def checkDownload(web, now_path): #Check the Safari Download history
         # CSV 파일로 저장
         csv_file = os.path.join(now_path, 'CSV_ChromeDownload.csv')  # CSV 파일 경로 설정
         df.to_csv(csv_file, sep=',')
-        print("Chrome Download output : ", csv_file)
+        print("Chrome Download output :", csv_file)
 
 
 def checkUrl(web, now_path):  #check the visited url
@@ -107,7 +107,7 @@ def checkUrl(web, now_path):  #check the visited url
         # CSV 파일로 저장
         csv_file = os.path.join(now_path, 'CSV_SafariVisit.csv')  # CSV 파일 경로 설정
         df.to_csv(csv_file, sep=',')
-        print("Safari Visit output : ", csv_file)
+        print("Safari Visit output :", csv_file)
     elif web == "Chrome":
         visit = []
         con = sqlite3.connect(os.path.join(Copy_folder, 'chrome_history'))
@@ -126,7 +126,7 @@ def checkUrl(web, now_path):  #check the visited url
         # CSV 파일로 저장
         csv_file = os.path.join(now_path, 'CSV_ChromeVisit.csv')  # CSV 파일 경로 설정
         df.to_csv(csv_file, sep=',')
-        print("Chrome Visit output : ", csv_file)
+        print("Chrome Visit output :", csv_file)
 
 def checkWeb():
     lib_path =os.path.expanduser(f"~/Library/")
