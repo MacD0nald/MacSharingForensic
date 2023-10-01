@@ -63,5 +63,6 @@ def login():
     makecopy()
 
     input_data = now+"/Copy_LoginWindow/com.apple.loginwindow.plist"
-    file_name = now+"/LoginWindow.csv"
+    file_name = now+"/CSV_LoginWindow.csv"
     plist_to_csv(input_data, file_name)
+    print(f"login window: {file_name}")
