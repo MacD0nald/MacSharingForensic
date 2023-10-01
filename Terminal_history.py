@@ -34,7 +34,6 @@ def Command_history():
                     terminal_history.append([str(j), "bash_shell"])
     return terminal_history
 def Terminal():
-    current_user = getpass.getuser() # Username
     D_path = os.path.expanduser(f"~/")
     col = ["Command", "Shell"]
     terminal_history = []
@@ -44,8 +43,10 @@ def Terminal():
     
     make_copy(script_folder, D_path)
     terminal_history = Command_history()
-    df = pd.DataFrame(terminal_history, columns=col)
-    os.chdir(script_folder)
-    # CSV 파일로 저장
-    csv_file = os.path.join(script_folder, 'CSV_Terminal.csv')  # CSV 파일 경로 설정
-    df.to_csv(csv_file, sep=',')
+    if terminal_history is not None:
+        df = pd.DataFrame(terminal_history, columns=col)
+        os.chdir(script_folder)
+        # CSV 파일로 저장
+        csv_file = os.path.join(script_folder, 'CSV_Terminal.csv')  # CSV 파일 경로 설정
+        df.to_csv(csv_file, sep=',')
+        print("Terminal history output: ", csv_file)
