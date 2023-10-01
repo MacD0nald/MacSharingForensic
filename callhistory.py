@@ -7,13 +7,16 @@ import shutil
 
 def directory():
     # 스크립트 파일이 있는 디렉토리를 기준으로 대상 폴더를 설정합니다.
-
     target_folder = os.path.expanduser(f"~/Library/Application Support/CallHistoryDB")
     target_files = os.listdir(target_folder)
     
     # 현재 스크립트 파일이 있는 폴더 경로
     current_script_directory = os.path.dirname(os.path.abspath(__file__))
-    script_folder = os.path.join(current_script_directory, "Copy_Contact")
+    script_folder = os.path.join(current_script_directory, "Copy_CallHistory")
+    
+    # 대상 폴더가 없다면 생성
+    if not os.path.exists(script_folder):
+        os.makedirs(script_folder)
 
     # 모든 파일을 복사하여 대상 폴더로 붙여넣기
     for file in target_files:
@@ -23,9 +26,8 @@ def directory():
         # 파일을 복사하여 붙여넣기
         try:
             shutil.copy2(source_file_path, destination_file_path)
-            print(f'파일 복사 완료: {file}')
         except Exception as e:
-            print(f'파일 복사 실패: {file}, 오류: {str(e)}')
+            print(f'Copy fail: {file}, error: {str(e)}')
 
 def convert_coretime_to_readable(timestamp):
      # Mac Absolute Time (CoreServices Timestamp)는 2001년 1월 1일 기준
@@ -39,7 +41,9 @@ def convert_coretime_to_readable(timestamp):
     return readable_time
 
 def CallH():
-    script_folder = os.path.dirname(os.path.abspath(__file__))
+    # 현재 스크립트 파일이 있는 폴더 경로
+    current_script_directory = os.path.dirname(os.path.abspath(__file__))
+    script_folder = os.path.join(current_script_directory, "Copy_CallHistory")
     directory()
     dbfile = os.path.join(script_folder, "CallHistory.storedata")
     conn = sqlite3.connect(dbfile)
@@ -62,7 +66,7 @@ def CallH():
     rows = cursor.fetchall()
     
     # CSV 파일로 저장
-    csv_file = os.path.join(script_folder, 'CSV_callhistory.csv')  # CSV 파일 경로 설정
+    csv_file = os.path.join(current_script_directory, 'CSV_callhistory.csv')  # CSV 파일 경로 설정
     
     with open(csv_file, 'w', newline='') as csv_output:
         csv_writer = csv.writer(csv_output)
