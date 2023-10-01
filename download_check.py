@@ -94,4 +94,4 @@ def Download_Check():
         # CSV 파일로 저장
         csv_file = os.path.join(script_folder, 'CSV_Download.csv')  # CSV 파일 경로 설정
         df.to_csv(csv_file, sep=',')
-        print("Download ouput: ", csv_file)
+        print("Download ouput :", csv_file)
