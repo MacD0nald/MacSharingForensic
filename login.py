@@ -23,10 +23,13 @@ def traverse_dict(d, path=[]):
         if isinstance(v, dict):
             rows.extend(traverse_dict(v, current_path))
         else:
-            rows.append(current_path + [str(v)])
+            while len(current_path) < 3:
+                current_path.append('')
+            current_path[-1] = str(v)
+            rows.append(current_path)
     return rows
 
-def plist_to_csv_using_plistlib(plist_path):
+def plist_to_csv(plist_path):
     # plist 파일 읽기
     with open(plist_path, 'rb') as f:
         pl = plistlib.load(f)
