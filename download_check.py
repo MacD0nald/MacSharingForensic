@@ -76,7 +76,6 @@ def Check_Download(path, data):
                 data.append([dateAdded, "", fname, "", "", ""])
     return data
 def Download_Check():
-    current_user = getpass.getuser()
     
     now = os.getcwd()
     D_path = os.path.expanduser(f"~/Downloads")
@@ -88,9 +87,11 @@ def Download_Check():
     script_folder = os.path.dirname(os.path.abspath(__file__))
     
     Airdrop_info = Check_Download(D_path, Airdrop_info)
-    df = pd.DataFrame(Airdrop_info, columns=col)
-    #print(df)
-    os.chdir(now)
-    # CSV 파일로 저장
-    csv_file = os.path.join(script_folder, 'CSV_Download.csv')  # CSV 파일 경로 설정
-    df.to_csv(csv_file, sep=',')
+    if Airdrop_info is not None :
+        df = pd.DataFrame(Airdrop_info, columns=col)
+        #print(df)
+        os.chdir(now)
+        # CSV 파일로 저장
+        csv_file = os.path.join(script_folder, 'CSV_Download.csv')  # CSV 파일 경로 설정
+        df.to_csv(csv_file, sep=',')
+        print("Download ouput: ", csv_file)
