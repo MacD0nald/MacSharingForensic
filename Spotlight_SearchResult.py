@@ -16,6 +16,8 @@ def make_copy(script_folder, D_path):
     os.chdir(script_folder)
 
 def Spotlight_analyzer(Spotlight_info):
+    # 현재 스크립트 파일이 있는 폴더 경로
+    script_folder = os.path.dirname(os.path.abspath(__file__))
     tree = elemTree.parse(os.path.join(script_folder, 'Copy_Spotlight/com.apple.spotlight.Shortcuts.v3'))
 
     root = tree.find("dict")
@@ -36,13 +38,13 @@ def Spotlight_analyzer(Spotlight_info):
 def Spotlight():
     D_path =os.path.expanduser(f"~/Library/Application Support/com.apple.spotlight/")
     col = ["Last Used", "Search Keyword", "Search Result", "Search Result Path"]
-    Spotligjt_info = []
+    Spotlight_info = []
     
     # 현재 스크립트 파일이 있는 폴더 경로
     script_folder = os.path.dirname(os.path.abspath(__file__))
     
     make_copy(script_folder, D_path)
-    Spotlight_info = Spotlight_analyzer(Spotligjt_info)
+    Spotlight_info = Spotlight_analyzer(Spotlight_info)
     df = pd.DataFrame(Spotlight_info, columns=col)
     os.chdir(script_folder)
     # CSV 파일로 저장
