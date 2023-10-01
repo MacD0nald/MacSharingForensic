@@ -82,5 +82,6 @@ def Calendar():
     makecopy()
     
     input_data = now+"/Copy_Calendar/Calendar.sqlitedb"
-    file_name = now+"/"+"Calendar.csv"
+    file_name = now+"/"+"CSV_Calendar.csv"
     sqlite_to_csv(input_data, file_name)
+    print(f"Calendar output: {file_name}")
