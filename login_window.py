@@ -1,8 +1,7 @@
-import os
-import time
 import plistlib
 import csv
-import getpass
+import os
+import time
 
 def makecopy():
   if os.path.isdir('./Copy_LoginWindow')==False:
@@ -17,40 +16,50 @@ def makecopy():
   time.sleep(3)
   os.chdir(now)
 
-def recursive_extract(data, parent_key='', results=None):
-    if results is None:
-        results = []
-
-    if isinstance(data, dict):
-        for k, v in data.items():
-            new_key = f"{parent_key}.{k}" if parent_key else k
-            if isinstance(v, (dict, list)):
-                recursive_extract(v, new_key, results)
+def traverse_dict(d, path=[]):
+    rows = []
+    for k, v in d.items():
+        current_path = path + [k]
+        if isinstance(v, dict):
+            if len(current_path) == 2:  
+                for key in v.keys():
+                    rows.append(current_path + [key])
             else:
-                results.append(f"{new_key}: {v}")
-    elif isinstance(data, list):
-        for idx, item in enumerate(data):
-            new_key = f"{parent_key}[{idx}]"
-            if isinstance(item, (dict, list)):
-                recursive_extract(item, new_key, results)
-            else:
-                results.append(f"{new_key}: {item}")
-    return results
+                rows.extend(traverse_dict(v, current_path))
+        else:
+            while len(current_path) < 3:
+                current_path.append('')
+            current_path[-1] = str(v)
+            rows.append(current_path)
+    return rows
 
-def plist_to_txt (input_data, file_name):
-  with open(input_data, 'rb') as f:
-     plist_data = plistlib.load(f)
-  
-  extracted_data = recursive_extract(plist_data)
 
-  with open (file_name, 'w')as f:
-    for line in extracted_data:
-      f.write(line + '\n')
-def login():
-  now = os.getcwd()
-  
-  makecopy()
-  
-  input_data = now+"/Copy_LoginWindow/com.apple.loginwindow.plist"
-  file_name = now+"/"+"LoginWinow.txt"
-  plist_to_txt(input_data, file_name)
+def plist_to_csv(plist_path):
+    # plist 파일 읽기
+    with open(plist_path, 'rb') as f:
+        pl = plistlib.load(f)
+
+    rows = traverse_dict(pl)
+
+    # 중복된 Level 1, Level 2 값을 빈 문자열로 대체
+    prev_l1, prev_l2 = None, None
+    for row in rows:
+        l1, l2, _ = row
+        if l1 == prev_l1:
+            row[0] = ''
+            if l2 == prev_l2:
+                row[1] = ''
+        prev_l1, prev_l2 = l1, l2
+
+    # CSV 파일로 저장
+    with open(now+"/LoginWindow.csv", "w") as f:
+        writer = csv.writer(f)
+        writer.writerow(["Level 1", "Level 2", "Level 3"])
+        writer.writerows(rows)
+# 사용
+now = os.getcwd()
+
+makecopy()
+
+input_data = now+"/Copy_LoginWindow/com.apple.loginwindow.plist"
+plist_to_csv(input_data)
