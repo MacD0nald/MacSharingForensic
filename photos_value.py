@@ -14,11 +14,10 @@ def Photos():
     csv_header = ['폴더명', '파일명', '파일 크기 (바이트)', '생성 시간', '최종 수정 시간']
 
     # 사용자 이름 가져오기
-    current_user = getpass.getuser()
     target_folder_path = os.path.expanduser(f"~/Pictures/Photos Library.photoslibrary/originals")
 
     # CSV 파일을 열고 헤더를 쓰기 모드로 씁니다.
-    csv_file_path = os.path.join(script_directory, 'file_attributes.csv')
+    csv_file_path = os.path.join(script_directory, 'CSV_photosvalue.csv')
     with open(csv_file_path, mode='w', newline='') as csv_file:
         writer = csv.writer(csv_file)
         writer.writerow(csv_header)
@@ -45,6 +44,5 @@ def Photos():
                 # CSV 파일에 데이터를 씁니다.
                 writer.writerow([folder_name, file_name, file_size, file_create_time, file_modify_time])
 
-    print(f'CSV 파일이 {csv_file_path} 경로에 생성되었습니다.')
+    print(f'Photos_value Output: {csv_file_path}')
 
-Photos()
