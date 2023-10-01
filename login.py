@@ -21,7 +21,6 @@ def traverse_dict(d, path=[]):
     for k, v in d.items():
         current_path = path + [k]
         if isinstance(v, dict):
-            # 이 부분을 수정하여 3차 dict에서는 키만 추가되도록 합니다.
             if len(current_path) == 2:  
                 for key in v.keys():
                     rows.append(current_path + [key])
