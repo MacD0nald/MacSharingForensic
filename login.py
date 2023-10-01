@@ -23,19 +23,16 @@ def traverse_dict(d, path=[]):
         if isinstance(v, dict):
             rows.extend(traverse_dict(v, current_path))
         else:
-            while len(current_path) < 3:
-                current_path.append('')
-            current_path[-1] = str(v)
-            rows.append(current_path)
+            rows.append(current_path + [str(v)])
     return rows
 
-def plist_to_csv(plist_path):
+def plist_to_csv_using_plistlib(plist_path):
     # plist 파일 읽기
     with open(plist_path, 'rb') as f:
         pl = plistlib.load(f)
 
     rows = traverse_dict(pl)
-    
+
     # 중복된 Level 1, Level 2 값을 빈 문자열로 대체
     prev_l1, prev_l2 = None, None
     for row in rows:
