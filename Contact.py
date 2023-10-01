@@ -71,7 +71,7 @@ def sel_bplist(plist_data):
     return filtered_dict
 
 
-if __name__ == "__main__":
+def Contact():
     destination_folder = directory()
     all_filtered_data = []
 
