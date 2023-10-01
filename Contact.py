@@ -98,3 +98,4 @@ def Contact():
 
         # Write the data rows
         csv_writer.writerows(all_filtered_data)
+    print(f"Contact output: {csv_file}")
