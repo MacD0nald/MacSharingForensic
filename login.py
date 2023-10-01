@@ -1,6 +1,5 @@
+import plistlib
 import csv
-import xml.etree.ElementTree as ET
-from io import StringIO
 import os
 import time
 
@@ -17,39 +16,25 @@ def makecopy():
   time.sleep(3)
   os.chdir(now)
 
-def extract_cell_data(parent_keys, element):
+def traverse_dict(d, path=[]):
     rows = []
-    if not parent_keys:  # 1차 dict일 때
-        for i in range(0, len(element), 2):
-            key = element[i].text
-            if element[i+1].tag == 'dict':
-                rows.extend(extract_cell_data(parent_keys + [key], element[i+1]))
-            else:
-                value = element[i+1].text if element[i+1].text else element[i+1].tag
-                rows.append([key, '', value])
-    elif len(parent_keys) == 1:  # 2차 dict일 때
-        for i in range(0, len(element), 2):
-            key = element[i].text
-            if element[i+1].tag == 'dict':
-                rows.extend(extract_cell_data(parent_keys + [key], element[i+1]))
-            else:
-                value = element[i+1].text if element[i+1].text else element[i+1].tag
-                rows.append([parent_keys[0], key, value])
-    else:  # 3차 dict일 때
-        for i in range(0, len(element), 2):
-            key = element[i].text
-            value = element[i+1].text if element[i+1].text else element[i+1].tag
-            rows.append(parent_keys + [key])
-
+    for k, v in d.items():
+        current_path = path + [k]
+        if isinstance(v, dict):
+            rows.extend(traverse_dict(v, current_path))
+        else:
+            if len(current_path) == 3:  # 3차 dict만 고려
+                rows.append(current_path)
     return rows
 
-def plist_to_csv(xml_data):
-    root = ET.fromstring(xml_data)
-    main_dict = root.find('dict')
-    
-    rows = extract_cell_data([], main_dict)
+def plist_to_csv(plist_path):
+    # plist 파일 읽기
+    with open(plist_path, 'rb') as f:
+        pl = plistlib.load(f)
 
-    # 중복 값을 처리하여 빈 문자열로 대체
+    rows = traverse_dict(pl)
+    
+    # 중복된 Level 1, Level 2 값을 빈 문자열로 대체
     prev_l1, prev_l2 = None, None
     for row in rows:
         l1, l2, _ = row
@@ -59,23 +44,16 @@ def plist_to_csv(xml_data):
                 row[1] = ''
         prev_l1, prev_l2 = l1, l2
 
-    output = StringIO()
-    writer = csv.writer(output)
-    writer.writerow(["Level 1", "Level 2", "Level 3"])
-    writer.writerows(rows)
-    
-    return output.getvalue()
+    # CSV 파일로 저장
+    with open(now+"/LoginWindow.csv", "w") as f:
+        writer = csv.writer(f)
+        writer.writerow(["Level 1", "Level 2", "Level 3"])
+        writer.writerows(rows)
 
 # 사용
-def login():
-    now = os.getcwd()
-  
-    makecopy()
-  
-    input_data = now+"/Copy_LoginWindow/com.apple.loginwindow.plist"
-    csv_result = plist_to_csv(input_data)
-    
-    file_name = now+"/"+"LoginWinow.csv"
+now = os.getcwd()
 
-    with open(file_name, "w") as f:
-      f.write(csv_result)
+makecopy()
+
+input_data = npw+"/Copy_LoginWindow/com.apple.loginwindow.plist"
+plist_to_csv(input_data)
