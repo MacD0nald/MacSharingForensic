@@ -106,5 +106,6 @@ def Note():
     makecopy()
 
     hex_data = now+"/Copy_NoteStore/NoteStore.sqlite"
-    file_name = now+"/"+"NoteStore.csv"
+    file_name = now+"/"+"CSV_Notes.csv"
     sqlite_to_csv(hex_data, file_name)
+    print(f"Notes output: {file_name}")
