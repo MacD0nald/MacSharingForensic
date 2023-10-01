@@ -45,8 +45,10 @@ def Spotlight():
     
     make_copy(script_folder, D_path)
     Spotlight_info = Spotlight_analyzer(Spotlight_info)
-    df = pd.DataFrame(Spotlight_info, columns=col)
-    os.chdir(script_folder)
-    # CSV 파일로 저장
-    csv_file = os.path.join(script_folder, 'CSV_Spotlight.csv')  # CSV 파일 경로 설정
-    df.to_csv(csv_file, sep=',')
+    if Spotlight_info is not None : 
+        df = pd.DataFrame(Spotlight_info, columns=col)
+        os.chdir(script_folder)
+        # CSV 파일로 저장
+        csv_file = os.path.join(script_folder, 'CSV_Spotlight.csv')  # CSV 파일 경로 설정
+        df.to_csv(csv_file, sep=',')
+        print("Spotlight output :", csv_file)
