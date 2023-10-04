@@ -57,13 +57,14 @@ def CheckPlist():
                             string = device_mac+" : "+str(device_info)
                             f.write(string+"\n")
                             f.write("\n")
-                print("Check The file, 'TXT_backupinfo.txt'")
+                print(f"idevice backup output: {now2}")
+                #print("Check The file, 'TXT_backupinfo.txt'")
             except:
                 print("There is no devices in Mac")
-                print(traceback.format_exc())
+                #print(traceback.format_exc())
 
 
 def find_idevicebackup():
     makecopy()
     CheckPlist()
-
+    
