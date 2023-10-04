@@ -39,10 +39,10 @@ def CheckPlist():
                 string = device_mac+" : "+str(device_info)
                 f.write(string+"\n")
                 f.write("\n")
-        print("Check The file, 'accountinfo.txt'")
+        #print("Check The file, 'accountinfo.txt'")
     except:
         print("There is no devices in Mac")
-        print(traceback.format_exc())
+        #print(traceback.format_exc())
 
 
 def TxttoCsv():
@@ -82,8 +82,8 @@ def TxttoCsv():
         # Write the data rows
         csv_writer.writerow(values)
 
-    print(f"Data has been exported to '{csv_file}'.")
-
+    #print(f"Data has been exported to '{csv_file}'.")
+    print(f"icloud account info output: {now2}")
 
 
     
