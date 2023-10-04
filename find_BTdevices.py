@@ -38,7 +38,7 @@ def CheckPlist():
                     string = str(i)+" : "+str(device_info[i])
                     f.write(string+"\n")
                 f.write("\n")
-        print("Check The file, 'bluetooth_log.txt'")
+        #print("Check The file, 'bluetooth_log.txt'")
     except:
         print("There is no devices in Mac")
 
@@ -95,8 +95,8 @@ def DbtoCsv():
         # Write the data rows
         csv_writer.writerows(data)
 
-    print(f"Data from '{table_name}' in '{database_file}' has been exported to '{csv_file}'.")
-
+    #print(f"Data from '{table_name}' in '{database_file}' has been exported to '{csv_file}'.")
+    
     with open("bluetooth_log.txt",'r') as file:
         lines=file.readlines()
 
@@ -135,7 +135,7 @@ def DbtoCsv():
             csv_writer.writerow(info)
             
     #print(devices)
-
+    print(f"Bluetooth device output: {script_folder}")
 
 
 def find_BTdevices():
