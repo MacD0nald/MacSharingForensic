@@ -41,53 +41,56 @@ def convert_coretime_to_readable(timestamp):
     return readable_time
 
 def CallH():
-    # 현재 스크립트 파일이 있는 폴더 경로
-    current_script_directory = os.path.dirname(os.path.abspath(__file__))
-    script_folder = os.path.join(current_script_directory, "Copy_CallHistory")
-    directory()
-    dbfile = os.path.join(script_folder, "CallHistory.storedata")
-    conn = sqlite3.connect(dbfile)
-    cursor = conn.cursor()
-    
-    # CSV 파일 저장 경로
-    csv_file = 'CSV_callhistory.csv'
-    
-    # 특정 테이블 선택
-    table_name = 'ZCALLRECORD'
-    columns_to_read = ['ZADDRESS', 'ZISO_COUNTRY_CODE', 'ZDATE', 'ZDURATION']
-    
-    # SQL 쿼리 작성 (특정 테이블의 특정 열 읽기)
-    query = f"SELECT {', '.join(columns_to_read)} FROM {table_name}"
-    
-    # 쿼리 실행
-    cursor.execute(query)
-    
-    # 결과 가져오기
-    rows = cursor.fetchall()
-    
-    # CSV 파일로 저장
-    csv_file = os.path.join(current_script_directory, 'CSV_callhistory.csv')  # CSV 파일 경로 설정
-    
-    with open(csv_file, 'w', newline='') as csv_output:
-        csv_writer = csv.writer(csv_output)
+    try:
+        # 현재 스크립트 파일이 있는 폴더 경로
+        current_script_directory = os.path.dirname(os.path.abspath(__file__))
+        script_folder = os.path.join(current_script_directory, "Copy_CallHistory")
+        directory()
+        dbfile = os.path.join(script_folder, "CallHistory.storedata")
+        conn = sqlite3.connect(dbfile)
+        cursor = conn.cursor()
         
-        # 열 이름을 CSV 파일의 첫 행으로 쓰기
-        csv_writer.writerow(['Phone number', 'ISO Country Code', 'Date', 'Duration(sec)'])
+        # CSV 파일 저장 경로
+        csv_file = 'CSV_callhistory.csv'
         
-        for row in rows:
-            # 타임스탬프 열의 값을 보기 좋은 형식으로 변환
-            timestamp_index = columns_to_read.index('ZDATE')
-            timestamp = row[timestamp_index]
+        # 특정 테이블 선택
+        table_name = 'ZCALLRECORD'
+        columns_to_read = ['ZADDRESS', 'ZISO_COUNTRY_CODE', 'ZDATE', 'ZDURATION']
+        
+        # SQL 쿼리 작성 (특정 테이블의 특정 열 읽기)
+        query = f"SELECT {', '.join(columns_to_read)} FROM {table_name}"
+        
+        # 쿼리 실행
+        cursor.execute(query)
+        
+        # 결과 가져오기
+        rows = cursor.fetchall()
+        
+        # CSV 파일로 저장
+        csv_file = os.path.join(current_script_directory, 'CSV_callhistory.csv')  # CSV 파일 경로 설정
+        
+        with open(csv_file, 'w', newline='') as csv_output:
+            csv_writer = csv.writer(csv_output)
             
-            # 타임스탬프 열의 값을 보기 좋은 형식으로 교체
-            row = list(row)
-            row[timestamp_index] = convert_coretime_to_readable(timestamp)
+            # 열 이름을 CSV 파일의 첫 행으로 쓰기
+            csv_writer.writerow(['Phone number', 'ISO Country Code', 'Date', 'Duration(sec)'])
             
-            # 결과 행을 CSV 파일에 쓰기
-            csv_writer.writerow(row)
-    
-    print(f"Callhistory output: {csv_file}")
-    
-    
-    # 연결 종료
-    conn.close()
+            for row in rows:
+                # 타임스탬프 열의 값을 보기 좋은 형식으로 변환
+                timestamp_index = columns_to_read.index('ZDATE')
+                timestamp = row[timestamp_index]
+                
+                # 타임스탬프 열의 값을 보기 좋은 형식으로 교체
+                row = list(row)
+                row[timestamp_index] = convert_coretime_to_readable(timestamp)
+                
+                # 결과 행을 CSV 파일에 쓰기
+                csv_writer.writerow(row)
+        
+        print(f"Callhistory output: {csv_file}")
+        
+        
+        # 연결 종료
+        conn.close()
+    except:
+        return
