@@ -18,11 +18,13 @@ def makecopy():
     #username=getpass.getuser()
     path = os.path.expanduser(f"~/Library/Application Support/MobileSync/")
     os.chdir(path)
-
-    com = "cp -r Backup/ "+now
-    os.popen(com)
-    time.sleep(3)
-    os.chdir(now)
+    try:
+        com = "cp -r Backup/ "+now
+        os.popen(com)
+        time.sleep(1)
+        os.chdir(now)
+    except:
+        print("There is no Backup devices")
 
 def CheckPlist():
     now = os.getcwd()
@@ -60,11 +62,14 @@ def CheckPlist():
                 print(f"idevice backup output: {now2}")
                 #print("Check The file, 'TXT_backupinfo.txt'")
             except:
-                print("There is no devices in Mac")
+                print("There is no backup devices in Mac")
                 #print(traceback.format_exc())
 
 
 def find_idevicebackup():
-    makecopy()
-    CheckPlist()
+    try:
+        makecopy()
+        CheckPlist()
+    except:
+        return
     
