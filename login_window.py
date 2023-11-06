@@ -6,12 +6,13 @@ import time
 def makecopy():
   if os.path.isdir('./Copy_LoginWindow')==False:
     os.mkdir('./Copy_LoginWindow')
-  now = os.getcwd()+'/Copy_LoginWindow'
+  output_path = os.getcwd()+'/Copy_LoginWindow'
+  now = os.getcwd()
 
   path = "/Library/Preferences"
   os.chdir(path)
 
-  com = "cp com.apple.loginwindow.plist "+ now +"/"+"com.apple.loginwindow.plist"
+  com = "cp com.apple.loginwindow.plist "+ output_path +"/"+"com.apple.loginwindow.plist"
   os.popen(com)
   time.sleep(3)
   os.chdir(now)
